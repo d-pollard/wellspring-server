@@ -15,9 +15,18 @@ use Validator;
 
 class TrainsController
 {
-    public function index(): array
+    public static $orderOptions = ['line', 'route', 'run', 'operator'];
+
+    public function index(Request $request): array
     {
-        return Trains::paginate(5)->toArray();
+        $orderByField = $request->input('orderByField', 'run');
+        $orderByDir   = $request->input('orderByDir', 'asc');
+
+        if ($orderByDir !== 'asc' || $orderByDir !== 'desc') $orderByDir = 'asc';
+        if (!in_array($orderByField, self::$orderOptions))   $orderByField = 'run';
+
+
+        return Trains::orderBy($orderByField, $orderByDir)->paginate(5)->toArray();
     }
 
     public function create(Request $request): array
