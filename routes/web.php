@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => '/trains'], function () use ($router) {
-    $router->options('/', function () { return ['success' => true]; });
+    $router->options('/{a?}', function () { return ['success' => true]; });
     $router->get('/', 'TrainsController@index');
     $router->post('/', 'TrainsController@create');
     $router->get('/{trainId}', 'TrainsController@view');
