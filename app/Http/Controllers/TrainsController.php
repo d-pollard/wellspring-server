@@ -22,9 +22,8 @@ class TrainsController
         $orderByField = $request->input('orderByField', 'run');
         $orderByDir   = $request->input('orderByDir', 'asc');
 
-        if ($orderByDir !== 'asc' || $orderByDir !== 'desc') $orderByDir = 'asc';
+        if ($orderByDir !== 'asc' && $orderByDir !== 'desc') $orderByDir = 'asc';
         if (!in_array($orderByField, self::$orderOptions))   $orderByField = 'run';
-
 
         return Trains::orderBy($orderByField, $orderByDir)->paginate(5)->toArray();
     }
